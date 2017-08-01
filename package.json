@@ -1,0 +1,29 @@
+{
+  "name": "autobumper",
+  "version": "1.0.0",
+  "description": "Update patch releases based on git history SHA",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/swapnilmishra/autobumper.git"
+  },
+  "keywords": [
+    "autobump",
+    "bump",
+    "publish"
+  ],
+  "author": "Swapnil",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/swapnilmishra/autobumper/issues"
+  },
+  "homepage": "https://github.com/swapnilmishra/autobumper#readme",
+  "dependencies": {
+    "read-pkg": "^2.0.0",
+    "shelljs": "^0.7.8",
+    "write-pkg": "^3.1.0"
+  }
+}
