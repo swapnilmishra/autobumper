@@ -1,5 +1,6 @@
 #!/usr/bin/env node
-
+// TODO: Modularize and handle various cases of Promise rejections
+// FIXME: Tests please
 const path = require("path"),
   fs = require("fs"),
   readPkg = require("read-pkg"),
@@ -28,6 +29,7 @@ function autobumper({ dir }) {
     );
     return;
   }
+  console.log(` Reading files from ${dir}`);
   fs.readdir(path.resolve(dir), function(err, pkgs) {
     pkgs.forEach(function(pkg) {
       packagePath = path.resolve(path.resolve(dir), pkg);
@@ -38,6 +40,8 @@ function autobumper({ dir }) {
   });
 }
 
+// FIXME: Problem with Promise.all is all the other promises gets rejected. Don't want that.
+// TODO: Ignore dotfiles
 function resolvePackagePromise() {
   Promise.all(packageReadPromises).then(consumePackageJSON);
 }
@@ -55,7 +59,11 @@ function bumpVersion(idx, pkg) {
 function setGitRevision(pkgDir, pContent) {
   // FIXME: This might not be the best way to get the SHA of commit as I hadnrolled it ¯\_(ツ)_/¯.
   // console.log(`Executing git log -n 1 ${pkgDir}`);
-  shell.exec(`git log -n 1 ${pkgDir}`, function(err, stdout, stderr) {
+  shell.exec(`git log -n 1 ${pkgDir}`, { silent: true }, function(
+    err,
+    stdout,
+    stderr
+  ) {
     const commitMsg = stdout.match(/^commit (\w+)\n/);
     if (commitMsg.length == 0) return;
     const sha = commitMsg[commitMsg.length - 1];
