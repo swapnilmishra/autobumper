@@ -9,9 +9,10 @@ Bumps the version of all the packages based on git history
 Its great suited for a folder structure where each package is in its own folder
 
 project
-  |----- package1
-  |----- package2
-  |----- package3
+
+   * package1
+   * package2
+   * package3
 
 
 ## CLI usage
