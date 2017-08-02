@@ -1,3 +1,5 @@
+#!/usr/bin/env node
+
 const path = require("path"),
   fs = require("fs"),
   readPkg = require("read-pkg"),
@@ -8,9 +10,16 @@ const packageReadPromises = [],
   packagePaths = [],
   packageWritePromises = [];
 
-let packagePath, allPkgs;
+let packagePath;
 
 module.exports = autobumper;
+
+const argv = require("yargs").argv;
+
+if (argv.dir) {
+  const { dir } = argv;
+  autobumper({ dir });
+}
 
 function autobumper({ dir }) {
   if (!dir) {
@@ -19,10 +28,9 @@ function autobumper({ dir }) {
     );
     return;
   }
-  fs.readdir("./packages", function(err, pkgs) {
-    allPkgs = pkgs;
+  fs.readdir(path.resolve(dir), function(err, pkgs) {
     pkgs.forEach(function(pkg) {
-      packagePath = path.resolve("./packages", pkg);
+      packagePath = path.resolve(path.resolve(dir), pkg);
       packageReadPromises.push(readPkg(packagePath));
       packagePaths.push(packagePath);
     });

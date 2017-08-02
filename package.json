@@ -24,6 +24,7 @@
   "dependencies": {
     "read-pkg": "^2.0.0",
     "shelljs": "^0.7.8",
-    "write-pkg": "^3.1.0"
+    "write-pkg": "^3.1.0",
+    "yargs": "^8.0.2"
   }
 }
